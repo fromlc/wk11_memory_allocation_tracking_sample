@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="wk11_memory_allocation_tracking_sample.vcxproj" />
+  <Project Path="wk11_memory_allocation_tracking_sample.vcxproj" Id="659c2b49-e01e-4260-98c9-758284bc047f" />
 </Solution>

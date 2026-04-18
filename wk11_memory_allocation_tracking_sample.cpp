@@ -1,53 +1,63 @@
 //------------------------------------------------------------------------------
 // wk11_memory_allocation_tracking_sample.cpp
+//
+// Geeks for Geeks example:
+// C++ program to illustrate malloc()
+// and new operator in C++
+// https://www.geeksforgeeks.org/cpp/new-vs-malloc-and-free-vs-delete-in-c/
 //------------------------------------------------------------------------------
 #include <iostream>
 #include <malloc.h>
 
-//------------------------------------------------------------------------------
-// override new operator to track memory allocations
-//      - malloc() is the memory allocation function in C, also works in C++
-//      - only use malloc() in C++ development code, not release code!
-//      - void* is generic memory pointer, you can cast to any pointer type
-//------------------------------------------------------------------------------
-void* operator new(size_t nBytes)
+// Class A
+class A
 {
-    std::cout << "Allocated " << nBytes << " bytes\n";
+    int a;
 
-    return malloc(nBytes);
-}
+public:
+    int* ptr;
 
-//------------------------------------------------------------------------------
-// override delete operator to track memory deallocations
-//      - free() is the memory deallocation function in C, also works in C++
-//      - only use free() in C++ development code, not release code!
-//------------------------------------------------------------------------------
-void operator delete(void* pDelete, size_t nBytes)
+    // Constructor of class A
+    A() : a(0), ptr(nullptr)
+    {
+        std::cout << "Class A constructor was called!\n";
+    }
+};
+
+// Struct B
+class B
 {
-    std::cout << "Deallocated " << nBytes << " bytes\n";
+    int b;
 
-    free(pDelete);
-}
+public:
+    int* ptr;
+
+    // Constructor of struct B
+    B() : b(0), ptr(nullptr)
+    {
+        std::cout << "Struct B constructor was called!\n";
+    }
+};
 
 //------------------------------------------------------------------------------
-// entry point
+// entry point: driver code
 //------------------------------------------------------------------------------
 int main()
 {
-    // pointer variable naming convention: small p then descriptive name
-    //      here pI is a short name for pointer to int
+    // Create an object of class A with new operator
+    A* pA = new A;
+    std::cout << "Instance of class A was created with new operator\n";
+    delete pA;
 
-    // allocate heap memory for one int (4 bytes), initialize with value 10
-    int* pI = new int(10);
+   // Create an object of class A with malloc()
+    pA = (A*)malloc(sizeof(A));
+    std::cout << "Instance of class A was created with malloc()\n";
+    delete pA;
 
-    std::cout << "The allocated int has value " << *pI << "\n";
+    // Create an instance of struct B new operator
+    B* pB = new B;
+    std::cout << "Instance of struct B was created with new operator\n";
+    delete pB;
 
-    // fix memory leak
-    delete(pI);
-    // pointer is now invalid - it contains an address that is unreachable
-
-    // best practice: set invalid pointers to 0 with nullptr or NULL
-    pI = nullptr;
-
-    std::cout << "\nGoodbye!\n";
+    return 0;
 }
