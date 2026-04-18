@@ -42,10 +42,12 @@ int main()
 
     std::cout << "The allocated int has value " << *pI << "\n";
 
-    // allocate heap memory for one int (4 bytes), initialize with value 10
-    pI = new int(25);
-    // the previously allocated int with value 10 is now unreachable garbage!
-    // we just created a memory leak
+    // fix memory leak
+    delete(pI);
+    // pointer is now invalid - it contains an address that is unreachable
+
+    // best practice: set invalid pointers to 0 with nullptr or NULL
+    pI = nullptr;
 
     std::cout << "\nGoodbye!\n";
 }
