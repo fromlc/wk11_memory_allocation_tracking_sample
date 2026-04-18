@@ -9,7 +9,9 @@
 #include <iostream>
 #include <malloc.h>
 
+//------------------------------------------------------------------------------
 // Class A
+//------------------------------------------------------------------------------
 class A
 {
     int a;
@@ -20,12 +22,14 @@ public:
     // Constructor of class A
     A() : a(0), ptr(nullptr)
     {
-        std::cout << "Class A constructor was called!\n";
+        std::cout << "\nClass A constructor was called!\n";
     }
 };
 
+//------------------------------------------------------------------------------
 // Struct B
-class B
+//------------------------------------------------------------------------------
+struct B
 {
     int b;
 
@@ -35,29 +39,32 @@ public:
     // Constructor of struct B
     B() : b(0), ptr(nullptr)
     {
-        std::cout << "Struct B constructor was called!\n";
+        std::cout << "\nStruct B constructor was called!\n";
     }
 };
 
 //------------------------------------------------------------------------------
-// entry point: driver code
+// driver code entry point
 //------------------------------------------------------------------------------
 int main()
 {
-    // Create an object of class A with new operator
+    // Allocate an instance of class A with new operator
     A* pA = new A;
-    std::cout << "Instance of class A was created with new operator\n";
+    std::cout << "Allocated class A instance with new operator\n";
     delete pA;
+    std::cout << "Deallocated class A instance with delete operator\n";
 
-   // Create an object of class A with malloc()
+   // Allocate an instance of class A with malloc()
     pA = (A*)malloc(sizeof(A));
-    std::cout << "Instance of class A was created with malloc()\n";
+    std::cout << "Allocated class A instance with malloc()\n";
     delete pA;
+    std::cout << "Deallocated class A instance with delete operator\n";
 
-    // Create an instance of struct B new operator
+    // Allocate an instance of struct B new operator
     B* pB = new B;
-    std::cout << "Instance of struct B was created with new operator\n";
+    std::cout << "Allocated struct B instance with new operator\n";
     delete pB;
+    std::cout << "Deallocated struct B instance with delete operator\n";
 
     return 0;
 }
