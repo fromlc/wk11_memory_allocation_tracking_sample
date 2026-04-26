@@ -9,6 +9,21 @@
 #include <iostream>
 #include <malloc.h>
 
+static int count = 0;
+
+void* operator new(size_t size)
+{
+
+    std::cout << ++count << " ??allocated " << size << " bytes\n";
+    return malloc(size);
+}
+
+void operator delete(void* pMemory, size_t size)
+{
+    std::cout << --count << " ??deallocated " << size << " bytes\n";
+    free(pMemory);
+}
+
 //------------------------------------------------------------------------------
 // Class A
 //------------------------------------------------------------------------------
@@ -57,7 +72,7 @@ int main()
    // Allocate an instance of class A with malloc()
     pA = (A*)malloc(sizeof(A));
     std::cout << "Allocated class A instance with malloc()\n";
-    delete pA;
+    free(pA);
     std::cout << "Deallocated class A instance with delete operator\n";
 
     // Allocate an instance of struct B new operator
